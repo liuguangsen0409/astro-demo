@@ -1,34 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPost from '../components/BlogPost.astro';
+const allPosts = await Astro.glob('../pages/posts/*.md');
+const pageTitle = '博客';
 ---
 
-<Layout title="Welcome to Astro.">
-	<body>
-    <a href="/">首页</a>
-    <a href="/about">关于</a>
-    <a href="/blog">博客</a>
+<BaseLayout pageTitle={pageTitle}>
+  <h1>我的 Astro 学习博客</h1>
+  <p>在这里，我将分享我的学习 Astro 之旅。</p>
 
-    <h1>我的 Astro 学习博客</h1>
-    <p>在这里，我将分享我的学习 Astro 之旅。</p>
-  </body>
-</Layout>
-
-<style>
-	body {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
-	
-	h1 {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
-	}
-</style>
+  <ul>
+    {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
+  </ul>
+</BaseLayout>
